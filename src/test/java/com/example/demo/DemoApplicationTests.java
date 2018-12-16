@@ -11,6 +11,7 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -27,6 +28,7 @@ public class DemoApplicationTests {
     @Autowired
     private GitlabApiBiz gitlabApiBiz;
 
+
     @Test
     public void contextLoads() {
     }
@@ -34,18 +36,18 @@ public class DemoApplicationTests {
 
     @Test
     public void gitclone() throws GitAPIException {
-        //hookBiz.gitClone("lijiyang", "");
-        hookBiz.gitClone("http://192.168.102.111/test/spring-test.git",new File("d:\\lijiyang"));
+        String ref = "dev";
+        hookBiz.gitClone("http://192.168.102.111/test/spring-test.git",new File("d:\\git_root\\1\\" + ref), ref);
     }
 
     @Test
     public void gitPull(){
-        hookBiz.gitPull(new File("d:\\lijiyang"));
+        hookBiz.gitPull(new File("d:\\lijiyang"), "master");
     }
 
     @Test
     public void gitPush(){
-        hookBiz.gitPush(new File("d:\\lijiyang"), "http://192.168.102.111/testGroup/spring-test.git");
+        hookBiz.gitPush(new File("d:\\git_root\\1\\master"), "http://192.168.102.111/testGroup/spring-test.git", "master");
     }
 
     @Test
